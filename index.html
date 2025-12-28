@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>LOGOS-LOGIC</title>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        canvas { filter: contrast(120%) brightness(120%); }
+    </style>
+</head>
+<body>
+    <canvas id="world"></canvas>
+
+    <script>
+        const canvas = document.getElementById('world');
+        const ctx = canvas.getContext('2d');
+        const PHI = (1 + Math.sqrt(5)) / 2;
+
+        // 外部（文明）に依存しない固定の宇宙サイズ（1024は数理的便宜上の箱）
+        const SIZE = 1024;
+        canvas.width = canvas.height = SIZE;
+
+        // 内部時間（文明の時計を遮断）
+        let t = 0; 
+
+        function transform(re, im) {
+            const den = Math.pow(re + 1, 2) + Math.pow(im, 2);
+            return {
+                re: ((PHI * re + 1) * (re + 1) + PHI * Math.pow(im, 2)) / den,
+                im: (PHI * im * (re + 1) - (PHI * re + 1) * im) / den
+            };
+        }
+
+        const count = 144;
+        let particles = Array.from({ length: count }, (_, i) => ({
+            re: Math.cos(2 * Math.PI * i / PHI),
+            im: Math.sin(2 * Math.PI * i / PHI),
+            seed: i
+        }));
+
+        function draw() {
+            // 背景の消去速度も比率で固定
+            ctx.fillStyle = `rgba(0, 0, 0, ${1 / (PHI * PHI)})`;
+            ctx.fillRect(0, 0, SIZE, SIZE);
+
+            particles.forEach((p) => {
+                const next = transform(p.re, p.im);
+                
+                // 座標投影：キャンバス中央固定ではなく、純粋な複素平面の写像
+                const x = (next.re + 2) * (SIZE / 4);
+                const y = (next.im + 2) * (SIZE / 4);
+
+                // 色彩：外部参照なし。再帰回数 t と黄金比の積から黄金色を生成
+                const luminosity = (Math.sin(t * 0.05 + p.seed * PHI) + 1) / 2;
+                ctx.fillStyle = `rgba(212, 175, 55, ${0.3 + 0.6 * luminosity})`;
+
+                ctx.beginPath();
+                ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                p.re = next.re;
+                p.im = next.im;
+
+                // 特異点収束時の再循環（不滅のループ）
+                if (Math.abs(p.re - PHI) < 0.0001) {
+                    p.re = Math.cos(p.seed);
+                    p.im = Math.sin(p.seed);
+                }
+            });
+
+            t += 1; // 内部時間の歩進
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+    </script>
+</body>
+</html>
