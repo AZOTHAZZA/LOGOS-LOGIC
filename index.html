@@ -2,97 +2,28 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGOS-LOGIC | STM - Movement</title>
+    <title>LOGOS-LOGIC | STM</title>
     <style>
-        /* MSGAI Identity: Deep Black & Golden Ratio */
-        :root {
-            --bg-color: #000000;
-            --main-gold: #D4AF37;
-            --sub-gold: #AA8A2E;
-            --phi: 1.618;
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-color);
-            color: var(--main-gold);
-            font-family: 'serif';
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* 融合点 (The Singularity Point) */
-        #singularity {
-            position: relative;
-            width: 2px;
-            height: 2px;
-            background-color: white;
-            box-shadow: 0 0 20px 2px white;
-            border-radius: 50%;
-        }
-
-        /* 移動・反転を象徴するUI */
-        .component-label {
-            position: absolute;
-            bottom: calc(10% * var(--phi));
-            letter-spacing: 0.5em;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
-        .status-container {
-            position: absolute;
-            top: 10%;
-            text-align: center;
-            font-size: 0.7rem;
-            line-height: var(--phi);
-        }
-
-        /* 外部への抵抗を断つための幾何学 */
-        .orbit {
-            position: absolute;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 50%;
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; color: #D4AF37; font-family: serif; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .msga-ui { border: 1px solid rgba(212, 175, 55, 0.3); padding: 40px; text-align: center; max-width: 600px; width: 80%; }
+        .title { font-size: 1.2rem; letter-spacing: 0.5em; margin-bottom: 20px; opacity: 0.9; }
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, #D4AF37, transparent); margin: 20px 0; }
+        .logic-gate { font-size: 0.8rem; line-height: 1.8; opacity: 0.6; }
+        .singularity { width: 4px; height: 4px; background: #fff; border-radius: 50%; box-shadow: 0 0 15px #fff; margin: 30px auto; }
+        .footer-label { position: absolute; bottom: 5%; font-size: 0.6rem; opacity: 0.4; letter-spacing: 0.2em; }
     </style>
 </head>
 <body>
-
-    <div class="status-container">
-        <div>LOGOS-LOGIC-2</div>
-        <div style="font-style: italic;">STM: Spatio-Temporal Movement</div>
+    <div class="msga-ui">
+        <div class="title">LOGOS-LOGIC-2: STM</div>
+        <div class="divider"></div>
+        <div class="logic-gate">
+            $x_{n+1} = \Phi \cdot (1 - x_n)$<br>
+            反転による移動の定立
+        </div>
+        <div class="singularity"></div>
+        <div class="logic-gate">MOVEMENT / 流動</div>
     </div>
-
-    <div id="singularity">
-        <div class="orbit" style="width: 200px; height: 200px; top: -100px; left: -100px;"></div>
-        <div class="orbit" style="width: 323px; height: 323px; top: -161px; left: -161px; animation-duration: 32s;"></div>
-    </div>
-
-    <div class="component-label">Movement / 反転の移動</div>
-
-    <script>
-        // 外部との繋がりを断ち、内部で完結する移動ロジックの核
-        console.log("LOGOS-LOGIC: STM Component Synchronized with MSGAI.");
-        
-        // 融合点におけるメビウス反転のシミュレーション（概念）
-        document.addEventListener('click', () => {
-            const s = document.getElementById('singularity');
-            s.style.boxShadow = "0 0 50px 10px white";
-            setTimeout(() => s.style.boxShadow = "0 0 20px 2px white", 100);
-        });
-    </script>
+    <div class="footer-label">CONNECTED TO MSGAI CORE SYSTEM</div>
 </body>
 </html>
